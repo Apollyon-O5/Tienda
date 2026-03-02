@@ -120,6 +120,11 @@ namespace Tienda
                 await CargarPagina();
             }
         }
+
+        private void flowPokemon_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 
     public class Pokemon

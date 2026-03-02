@@ -32,59 +32,77 @@
             btnAnterior = new Button();
             btnSiguiente = new Button();
             lblSaldo = new Label();
-            flowPokemon.SuspendLayout();
+            lstComprados = new ListBox();
+            lblTotalGastado = new Label();
             SuspendLayout();
             // 
             // flowPokemon
             // 
             flowPokemon.AutoScroll = true;
-            flowPokemon.Controls.Add(btnAnterior);
-            flowPokemon.Controls.Add(btnSiguiente);
-            flowPokemon.Controls.Add(lblSaldo);
-            flowPokemon.Dock = DockStyle.Fill;
-            flowPokemon.Location = new Point(0, 0);
+            flowPokemon.Location = new Point(1, 42);
             flowPokemon.Name = "flowPokemon";
-            flowPokemon.Size = new Size(800, 450);
+            flowPokemon.Size = new Size(720, 376);
             flowPokemon.TabIndex = 0;
+            flowPokemon.Paint += flowPokemon_Paint;
             // 
             // btnAnterior
             // 
-            btnAnterior.Location = new Point(3, 3);
+            btnAnterior.Location = new Point(288, 444);
             btnAnterior.Name = "btnAnterior";
             btnAnterior.Size = new Size(79, 24);
-            btnAnterior.TabIndex = 0;
+            btnAnterior.TabIndex = 3;
             btnAnterior.Text = "Anterior";
             btnAnterior.UseVisualStyleBackColor = true;
             // 
             // btnSiguiente
             // 
-            btnSiguiente.Location = new Point(88, 3);
+            btnSiguiente.Location = new Point(373, 444);
             btnSiguiente.Name = "btnSiguiente";
             btnSiguiente.Size = new Size(79, 24);
-            btnSiguiente.TabIndex = 1;
+            btnSiguiente.TabIndex = 4;
             btnSiguiente.Text = "Siguiente";
             btnSiguiente.UseVisualStyleBackColor = true;
             // 
             // lblSaldo
             // 
             lblSaldo.AutoSize = true;
-            lblSaldo.Location = new Point(173, 0);
+            lblSaldo.Location = new Point(458, 441);
             lblSaldo.Name = "lblSaldo";
             lblSaldo.Size = new Size(0, 17);
-            lblSaldo.TabIndex = 2;
+            lblSaldo.TabIndex = 5;
+            // 
+            // lstComprados
+            // 
+            lstComprados.FormattingEnabled = true;
+            lstComprados.Location = new Point(727, 98);
+            lstComprados.Name = "lstComprados";
+            lstComprados.Size = new Size(168, 225);
+            lstComprados.TabIndex = 6;
+            // 
+            // lblTotalGastado
+            // 
+            lblTotalGastado.AutoSize = true;
+            lblTotalGastado.Location = new Point(236, 15);
+            lblTotalGastado.Name = "lblTotalGastado";
+            lblTotalGastado.Size = new Size(0, 17);
+            lblTotalGastado.TabIndex = 7;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(899, 507);
+            Controls.Add(lblTotalGastado);
+            Controls.Add(lstComprados);
+            Controls.Add(btnAnterior);
+            Controls.Add(btnSiguiente);
+            Controls.Add(lblSaldo);
             Controls.Add(flowPokemon);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
-            flowPokemon.ResumeLayout(false);
-            flowPokemon.PerformLayout();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -93,5 +111,7 @@
         private Button btnAnterior;
         private Button btnSiguiente;
         private Label lblSaldo;
+        private ListBox lstComprados;
+        private Label lblTotalGastado;
     }
 }

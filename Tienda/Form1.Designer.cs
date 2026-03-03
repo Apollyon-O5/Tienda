@@ -34,6 +34,7 @@
             lblSaldo = new Label();
             lstComprados = new ListBox();
             lblTotalGastado = new Label();
+            btnComprar = new Button();
             SuspendLayout();
             // 
             // flowPokemon
@@ -78,6 +79,7 @@
             lstComprados.Name = "lstComprados";
             lstComprados.Size = new Size(168, 225);
             lstComprados.TabIndex = 6;
+            lstComprados.SelectedIndexChanged += lstComprados_SelectedIndexChanged;
             // 
             // lblTotalGastado
             // 
@@ -87,6 +89,16 @@
             lblTotalGastado.Size = new Size(0, 17);
             lblTotalGastado.TabIndex = 7;
             // 
+            // btnComprar
+            // 
+            btnComprar.Location = new Point(771, 347);
+            btnComprar.Name = "btnComprar";
+            btnComprar.Size = new Size(79, 24);
+            btnComprar.TabIndex = 4;
+            btnComprar.Text = "Comprar";
+            btnComprar.UseVisualStyleBackColor = true;
+            btnComprar.Click += btnComprar_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -95,6 +107,7 @@
             Controls.Add(lblTotalGastado);
             Controls.Add(lstComprados);
             Controls.Add(btnAnterior);
+            Controls.Add(btnComprar);
             Controls.Add(btnSiguiente);
             Controls.Add(lblSaldo);
             Controls.Add(flowPokemon);
@@ -113,5 +126,6 @@
         private Label lblSaldo;
         private ListBox lstComprados;
         private Label lblTotalGastado;
+        private Button btnComprar;
     }
 }

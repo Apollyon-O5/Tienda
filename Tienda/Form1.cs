@@ -13,10 +13,14 @@ namespace Tienda
         private int paginaActual = 1;
         private int porPagina = 12;
         private int saldo = 200;
+        private List<string> pokemonComprados = new List<string>();
 
         public Form1()
         {
             InitializeComponent();
+            this.Load += Form1_Load;
+            btnSiguiente.Click += btnSiguiente_Click;
+            btnAnterior.Click += btnAnterior_Click;
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -78,7 +82,7 @@ namespace Tienda
             lblPrecio.Width = 130;
 
             Button btnComprar = new Button();
-            btnComprar.Text = "Comprar";
+            btnComprar.Text = "Agregar";
             btnComprar.Top = 175;
             btnComprar.Left = 25;
             btnComprar.Width = 100;
@@ -89,7 +93,10 @@ namespace Tienda
                 {
                     saldo -= precio;
                     lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
-                    MessageBox.Show($"Compraste a {pokemon.name}");
+                    MessageBox.Show($"Agregastes a {pokemon.name}");
+                    lstComprados.Items.Add(
+                    pokemon.name.ToUpper() + " - " + precio + " PB"
+                     );
                 }
                 else
                 {
@@ -125,6 +132,16 @@ namespace Tienda
         {
 
         }
+
+        private void lstComprados_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnComprar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
     public class Pokemon
@@ -148,4 +165,6 @@ namespace Tienda
     {
         public string front_default { get; set; }
     }
-}
+
+
+    }

@@ -28,13 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             flowPokemon = new FlowLayoutPanel();
             btnAnterior = new Button();
             btnSiguiente = new Button();
             lblSaldo = new Label();
-            lstComprados = new ListBox();
             lblTotalGastado = new Label();
             btnComprar = new Button();
+            lstComprados = new ListView();
+            imageListPokemon = new ImageList(components);
+            lblTotal = new Label();
+            btnEliminar = new Button();
             SuspendLayout();
             // 
             // flowPokemon
@@ -72,15 +76,6 @@
             lblSaldo.Size = new Size(0, 17);
             lblSaldo.TabIndex = 5;
             // 
-            // lstComprados
-            // 
-            lstComprados.FormattingEnabled = true;
-            lstComprados.Location = new Point(727, 98);
-            lstComprados.Name = "lstComprados";
-            lstComprados.Size = new Size(168, 225);
-            lstComprados.TabIndex = 6;
-            lstComprados.SelectedIndexChanged += lstComprados_SelectedIndexChanged;
-            // 
             // lblTotalGastado
             // 
             lblTotalGastado.AutoSize = true;
@@ -91,7 +86,7 @@
             // 
             // btnComprar
             // 
-            btnComprar.Location = new Point(771, 347);
+            btnComprar.Location = new Point(727, 345);
             btnComprar.Name = "btnComprar";
             btnComprar.Size = new Size(79, 24);
             btnComprar.TabIndex = 4;
@@ -99,16 +94,51 @@
             btnComprar.UseVisualStyleBackColor = true;
             btnComprar.Click += btnComprar_Click;
             // 
+            // lstComprados
+            // 
+            lstComprados.LargeImageList = imageListPokemon;
+            lstComprados.Location = new Point(741, 62);
+            lstComprados.Name = "lstComprados";
+            lstComprados.Size = new Size(146, 252);
+            lstComprados.TabIndex = 8;
+            lstComprados.UseCompatibleStateImageBehavior = false;
+            // 
+            // imageListPokemon
+            // 
+            imageListPokemon.ColorDepth = ColorDepth.Depth32Bit;
+            imageListPokemon.ImageSize = new Size(16, 16);
+            imageListPokemon.TransparentColor = Color.Transparent;
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Location = new Point(757, 428);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(0, 17);
+            lblTotal.TabIndex = 5;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.Location = new Point(812, 345);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(79, 24);
+            btnEliminar.TabIndex = 4;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnComprar_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(899, 507);
-            Controls.Add(lblTotalGastado);
             Controls.Add(lstComprados);
+            Controls.Add(lblTotalGastado);
             Controls.Add(btnAnterior);
+            Controls.Add(btnEliminar);
             Controls.Add(btnComprar);
             Controls.Add(btnSiguiente);
+            Controls.Add(lblTotal);
             Controls.Add(lblSaldo);
             Controls.Add(flowPokemon);
             Name = "Form1";
@@ -124,8 +154,11 @@
         private Button btnAnterior;
         private Button btnSiguiente;
         private Label lblSaldo;
-        private ListBox lstComprados;
         private Label lblTotalGastado;
         private Button btnComprar;
+        private ListView lstComprados;
+        private ImageList imageListPokemon;
+        private Label lblTotal;
+        private Button btnEliminar;
     }
 }

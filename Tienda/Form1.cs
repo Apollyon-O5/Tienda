@@ -14,6 +14,7 @@ namespace Tienda
         private int porPagina = 12;
         private int saldo = 200;
         private List<string> pokemonComprados = new List<string>();
+        private int totalGastado = 0;
 
         public Form1()
         {
@@ -21,6 +22,7 @@ namespace Tienda
             this.Load += Form1_Load;
             btnSiguiente.Click += btnSiguiente_Click;
             btnAnterior.Click += btnAnterior_Click;
+            btnEliminar.Click += btnEliminar_Click;
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -87,22 +89,41 @@ namespace Tienda
             btnComprar.Left = 25;
             btnComprar.Width = 100;
 
-            btnComprar.Click += (s, e) =>
+            btnComprar.Click += async (s, e) =>
             {
                 if (saldo >= precio)
                 {
                     saldo -= precio;
+                    totalGastado += precio;
+
                     lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
-                    MessageBox.Show($"Agregastes a {pokemon.name}");
-                    lstComprados.Items.Add(
-                    pokemon.name.ToUpper() + " - " + precio + " PB"
-                     );
+                    lblTotal.Text = "Total: " + totalGastado + " PB";
+
+                    // Descargar imagen como Bitmap
+                    var stream = await client.GetStreamAsync(pokemon.sprites.front_default);
+                    var img = System.Drawing.Image.FromStream(stream);
+
+                    imageListPokemon.Images.Add(pokemon.name, img);
+
+                    ListViewItem item = new ListViewItem(
+                        pokemon.name.ToUpper() + " - " + precio + " PB"
+                    );
+
+                    // Guardamos el precio en Tag
+                    item.Tag = precio;
+
+                    item.ImageKey = pokemon.name;
+
+                    lstComprados.Items.Add(item);
+
+
+                    MessageBox.Show($"{pokemon.name} agregado correctamente");
                 }
                 else
                 {
                     MessageBox.Show("No tienes suficientes Pokébolas");
                 }
-            };
+            }; 
 
             card.Controls.Add(pic);
             card.Controls.Add(lblNombre);
@@ -141,6 +162,34 @@ namespace Tienda
         private void btnComprar_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (lstComprados.SelectedItems.Count > 0)
+            {
+                ListViewItem item = lstComprados.SelectedItems[0];
+
+                int precio = (int)item.Tag;
+
+                // Restar del total
+                totalGastado -= precio;
+                lblTotal.Text = "Total: " + totalGastado + " PB";
+
+                // Devolver saldo
+                saldo += precio;
+                lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
+
+                // Eliminar imagen del ImageList
+                imageListPokemon.Images.RemoveByKey(item.ImageKey);
+
+                // Eliminar item
+                lstComprados.Items.Remove(item);
+            }
+            else
+            {
+                MessageBox.Show("Selecciona un Pokémon para eliminar.");
+            }
         }
     }
 

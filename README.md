@@ -2,7 +2,7 @@
 Proyecto de una tienda de pokemones para programación II
 
 ****
-###Script de la base de datos
+### Script de la base de datos
 ```
 CREATE DATABASE TiendaPokemon;
 GO

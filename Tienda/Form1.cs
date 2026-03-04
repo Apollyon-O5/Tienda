@@ -14,8 +14,7 @@ namespace Tienda
         private HttpClient client = new HttpClient();
         private int paginaActual = 1;
         private int porPagina = 12;
-        private int saldo = 200;
-        private List<string> pokemonComprados = new List<string>();
+        private int saldo = 200; //Si no se ingresa saldo este sera 200 por defecto
         private int totalGastado = 0;
         private string conexion = "Server=ROBERTO\\ROBERTOABREGO;Database=TiendaPokemon;User Id=sa;Password=sa123456;TrustServerCertificate=True;";
         private int transaccionActual;
@@ -219,10 +218,6 @@ namespace Tienda
             }
         }
 
-        private void flowPokemon_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
         private Color ObtenerColorTipo(string tipo)
         {
             switch (tipo)
@@ -237,10 +232,6 @@ namespace Tienda
                 case "dark": return Color.FromArgb(112, 88, 72);
                 default: return Color.LightGray;
             }
-        }
-        private void lstComprados_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void btnComprar_Click(object sender, EventArgs e)
@@ -304,21 +295,31 @@ namespace Tienda
             {
                 ListViewItem item = lstComprados.SelectedItems[0];
 
-                int precio = (int)item.Tag;
+                if (item.Tag is int precio)
+                {
+                    // Restar del total
+                    totalGastado -= precio;
+                    lblTotal.Text = "Total: " + totalGastado + " PB";
 
-                // Restar del total
-                totalGastado -= precio;
-                lblTotal.Text = "Total: " + totalGastado + " PB";
+                    // Devolver saldo
+                    saldo += precio;
+                    txtSaldo.Text = saldo.ToString();
 
-                // Devolver saldo
-                saldo += precio;
-                txtSaldo.Text = saldo.ToString();
+                    // Eliminar imagen del ImageList
+                    imageListPokemon.Images.RemoveByKey(item.ImageKey);
 
-                // Eliminar imagen del ImageList
-                imageListPokemon.Images.RemoveByKey(item.ImageKey);
+                    // Eliminar item
+                    lstComprados.Items.Remove(item);
 
-                // Eliminar item
-                lstComprados.Items.Remove(item);
+                    MessageBox.Show($"Se ha eliminado a {item.Text}");
+
+                }
+                else
+                {
+                    MessageBox.Show("El precio no es válido.");
+                }
+
+
             }
             else
             {

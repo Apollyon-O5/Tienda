@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             flowPokemon = new FlowLayoutPanel();
             btnAnterior = new Button();
             btnSiguiente = new Button();
@@ -40,17 +41,18 @@
             btnSobreNosotros = new Button();
             btnComprarFinal = new Button();
             txtSaldo = new TextBox();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // flowPokemon
             // 
             flowPokemon.AutoScroll = true;
             flowPokemon.BackColor = Color.White;
-            flowPokemon.Location = new Point(29, 35);
+            flowPokemon.Location = new Point(46, 35);
             flowPokemon.Name = "flowPokemon";
-            flowPokemon.Size = new Size(682, 376);
+            flowPokemon.Size = new Size(624, 376);
             flowPokemon.TabIndex = 0;
-            flowPokemon.Paint += flowPokemon_Paint;
             // 
             // btnAnterior
             // 
@@ -122,7 +124,6 @@
             btnEliminar.TabIndex = 4;
             btnEliminar.Text = "Eliminar";
             btnEliminar.UseVisualStyleBackColor = false;
-            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnSobreNosotros
             // 
@@ -162,12 +163,23 @@
             txtSaldo.KeyPress += txtSaldo_KeyPress;
             txtSaldo.Leave += txtSaldo_Leave;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(614, 436);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(39, 39);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 11;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 128, 0);
             ClientSize = new Size(899, 507);
+            Controls.Add(pictureBox1);
             Controls.Add(txtSaldo);
             Controls.Add(btnSobreNosotros);
             Controls.Add(lstComprados);
@@ -181,6 +193,7 @@
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -198,5 +211,6 @@
         private Button btnSobreNosotros;
         private Button btnComprarFinal;
         private TextBox txtSaldo;
+        private PictureBox pictureBox1;
     }
 }

@@ -37,9 +37,7 @@ namespace Tienda
         }
         private void SobreNosotros_Load(object sender, EventArgs e)
         {
-
             RedondearBoton(btnVolver, 40);
-
         }
 
         private void btnVolver_Click(object sender, EventArgs e)

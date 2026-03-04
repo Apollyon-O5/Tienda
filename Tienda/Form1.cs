@@ -78,43 +78,85 @@ namespace Tienda
             var pokemon = JsonSerializer.Deserialize<Pokemon>(json);
 
             Panel card = new Panel();
-            card.Width = 150;
-            card.Height = 220;
-            card.BorderStyle = BorderStyle.FixedSingle;
+            card.Width = 170;
+            card.Height = 250;
+            card.Margin = new Padding(10);
+            card.Padding = new Padding(5);
 
+            string tipoPokemon = pokemon.types[0].type.name;
+
+            // 🎨 Color por tipo
+            card.BackColor = ObtenerColorTipo(tipoPokemon);
+
+            // 🔥 Bordes redondeados
+            GraphicsPath path = new GraphicsPath();
+            int radio = 20;
+
+            path.AddArc(0, 0, radio, radio, 180, 90);
+            path.AddArc(card.Width - radio, 0, radio, radio, 270, 90);
+            path.AddArc(card.Width - radio, card.Height - radio, radio, radio, 0, 90);
+            path.AddArc(0, card.Height - radio, radio, radio, 90, 90);
+            path.CloseAllFigures();
+
+            card.Region = new Region(path);
+
+            // 🖼 Imagen centrada
             PictureBox pic = new PictureBox();
             pic.Width = 120;
             pic.Height = 100;
-            pic.Top = 10;
-            pic.Left = 15;
+            pic.Top = 20;
+            pic.Left = (card.Width - pic.Width) / 2;
             pic.SizeMode = PictureBoxSizeMode.Zoom;
+            pic.BackColor = Color.Transparent;
             pic.Load(pokemon.sprites.front_default);
 
+            // 🏷 Nombre estilizado
             Label lblNombre = new Label();
             lblNombre.Text = pokemon.name.ToUpper();
-            lblNombre.Top = 115;
-            lblNombre.Left = 10;
-            lblNombre.Width = 130;
+            lblNombre.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            lblNombre.ForeColor = Color.Black;
+            lblNombre.Width = card.Width;
+            lblNombre.Top = 125;
+            lblNombre.TextAlign = ContentAlignment.MiddleCenter;
 
+            // 🔹 Tipo estilizado
             Label lblTipo = new Label();
-            lblTipo.Text = "Tipo: " + pokemon.types[0].type.name;
-            lblTipo.Top = 135;
-            lblTipo.Left = 10;
-            lblTipo.Width = 130;
+            lblTipo.Text = tipoPokemon.ToUpper();
+            lblTipo.Font = new Font("Segoe UI", 8, FontStyle.Italic);
+            lblTipo.Width = card.Width;
+            lblTipo.Top = 150;
+            lblTipo.TextAlign = ContentAlignment.MiddleCenter;
 
+            // 💰 Precio destacado
             int precio = id * 2;
 
             Label lblPrecio = new Label();
-            lblPrecio.Text = "Precio: " + precio;
-            lblPrecio.Top = 155;
-            lblPrecio.Left = 10;
-            lblPrecio.Width = 130;
+            lblPrecio.Text = precio + " PB";
+            lblPrecio.Font = new Font("Segoe UI", 9, FontStyle.Bold);
+            lblPrecio.ForeColor = Color.DarkGreen;
+            lblPrecio.Width = card.Width;
+            lblPrecio.Top = 170;
+            lblPrecio.TextAlign = ContentAlignment.MiddleCenter;
 
+            // 🟢 Botón moderno
             Button btnComprar = new Button();
             btnComprar.Text = "Agregar";
-            btnComprar.Top = 175;
-            btnComprar.Left = 25;
-            btnComprar.Width = 100;
+            btnComprar.Width = 110;
+            btnComprar.Height = 30;
+            btnComprar.Top = 200;
+            btnComprar.Left = (card.Width - btnComprar.Width) / 2;
+            btnComprar.FlatStyle = FlatStyle.Flat;
+            btnComprar.BackColor = Color.Black;
+            btnComprar.ForeColor = Color.White;
+            btnComprar.FlatAppearance.BorderSize = 0;
+            btnComprar.Cursor = Cursors.Hand;
+
+            // Hover efecto
+            btnComprar.MouseEnter += (s, e) =>
+                btnComprar.BackColor = Color.DarkRed;
+
+            btnComprar.MouseLeave += (s, e) =>
+                btnComprar.BackColor = Color.Black;
 
             btnComprar.Click += async (s, e) =>
             {
@@ -180,7 +222,21 @@ namespace Tienda
         {
 
         }
-
+        private Color ObtenerColorTipo(string tipo)
+        {
+            switch (tipo)
+            {
+                case "grass": return Color.FromArgb(120, 200, 80);
+                case "fire": return Color.FromArgb(240, 128, 48);
+                case "water": return Color.FromArgb(104, 144, 240);
+                case "electric": return Color.FromArgb(248, 208, 48);
+                case "psychic": return Color.FromArgb(248, 88, 136);
+                case "ice": return Color.FromArgb(152, 216, 216);
+                case "dragon": return Color.FromArgb(112, 56, 248);
+                case "dark": return Color.FromArgb(112, 88, 72);
+                default: return Color.LightGray;
+            }
+        }
         private void lstComprados_SelectedIndexChanged(object sender, EventArgs e)
         {
 

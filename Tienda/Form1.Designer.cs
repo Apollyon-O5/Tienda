@@ -32,7 +32,6 @@
             flowPokemon = new FlowLayoutPanel();
             btnAnterior = new Button();
             btnSiguiente = new Button();
-            lblSaldo = new Label();
             lblTotalGastado = new Label();
             lstComprados = new ListView();
             imageListPokemon = new ImageList(components);
@@ -40,6 +39,7 @@
             btnEliminar = new Button();
             btnSobreNosotros = new Button();
             btnComprarFinal = new Button();
+            txtSaldo = new TextBox();
             SuspendLayout();
             // 
             // flowPokemon
@@ -77,14 +77,6 @@
             btnSiguiente.TabIndex = 4;
             btnSiguiente.Text = "Siguiente";
             btnSiguiente.UseVisualStyleBackColor = false;
-            // 
-            // lblSaldo
-            // 
-            lblSaldo.AutoSize = true;
-            lblSaldo.Location = new Point(484, 444);
-            lblSaldo.Name = "lblSaldo";
-            lblSaldo.Size = new Size(0, 17);
-            lblSaldo.TabIndex = 5;
             // 
             // lblTotalGastado
             // 
@@ -160,12 +152,23 @@
             btnComprarFinal.UseVisualStyleBackColor = false;
             btnComprarFinal.Click += btnComprar_Click;
             // 
+            // txtSaldo
+            // 
+            txtSaldo.BackColor = SystemColors.InactiveCaption;
+            txtSaldo.Location = new Point(503, 444);
+            txtSaldo.Name = "txtSaldo";
+            txtSaldo.Size = new Size(105, 25);
+            txtSaldo.TabIndex = 10;
+            txtSaldo.KeyPress += txtSaldo_KeyPress;
+            txtSaldo.Leave += txtSaldo_Leave;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(255, 128, 0);
             ClientSize = new Size(899, 507);
+            Controls.Add(txtSaldo);
             Controls.Add(btnSobreNosotros);
             Controls.Add(lstComprados);
             Controls.Add(lblTotalGastado);
@@ -174,7 +177,6 @@
             Controls.Add(btnComprarFinal);
             Controls.Add(btnSiguiente);
             Controls.Add(lblTotal);
-            Controls.Add(lblSaldo);
             Controls.Add(flowPokemon);
             Name = "Form1";
             Text = "Form1";
@@ -188,7 +190,6 @@
         private FlowLayoutPanel flowPokemon;
         private Button btnAnterior;
         private Button btnSiguiente;
-        private Label lblSaldo;
         private Label lblTotalGastado;
         private ListView lstComprados;
         private ImageList imageListPokemon;
@@ -196,5 +197,6 @@
         private Button btnEliminar;
         private Button btnSobreNosotros;
         private Button btnComprarFinal;
+        private TextBox txtSaldo;
     }
 }

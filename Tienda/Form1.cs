@@ -24,6 +24,7 @@ namespace Tienda
         {
             InitializeComponent();
             this.Load += Form1_Load;
+            txtSaldo.Text = saldo.ToString();
             btnSiguiente.Click += btnSiguiente_Click;
             btnAnterior.Click += btnAnterior_Click;
             btnEliminar.Click += btnEliminar_Click;
@@ -31,7 +32,7 @@ namespace Tienda
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
+            txtSaldo.Text = saldo.ToString();
             await CargarPagina();
             //entre mayores son los numeros mas redondo son los botones
             // no poner mas de 45 ya que la forma que adquieren es parecia a los dulces con dos triangulos apuntando al ovalo
@@ -165,7 +166,7 @@ namespace Tienda
                     saldo -= precio;
                     totalGastado += precio;
 
-                    lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
+                    txtSaldo.Text = saldo.ToString();
                     lblTotal.Text = "Total: " + totalGastado + " PB";
 
                     // Descargar imagen como Bitmap
@@ -311,7 +312,7 @@ namespace Tienda
 
                 // Devolver saldo
                 saldo += precio;
-                lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
+                txtSaldo.Text = saldo.ToString();
 
                 // Eliminar imagen del ImageList
                 imageListPokemon.Images.RemoveByKey(item.ImageKey);
@@ -330,7 +331,45 @@ namespace Tienda
             SobreNosotros ventana = new SobreNosotros();
             ventana.ShowDialog();
         }
+
+        private void txtSaldo_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
+            {
+                e.Handled = true; // Bloquea la tecla
+            }
+        }
+        private void txtSaldo_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtSaldo.Text))
+            {
+                MessageBox.Show("El saldo no puede estar vacío.");
+                txtSaldo.Text = saldo.ToString();
+                return;
+            }
+
+            if (int.TryParse(txtSaldo.Text, out int nuevoSaldo))
+            {
+                if (nuevoSaldo >= 0)
+                {
+                    saldo = nuevoSaldo; // Actualiza variable global
+                }
+                else
+                {
+                    MessageBox.Show("El saldo no puede ser negativo.");
+                    txtSaldo.Text = saldo.ToString();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Ingrese un número válido.");
+                txtSaldo.Text = saldo.ToString();
+            }
+        }
+
     }
+
+
 
     public class Pokemon
     {

@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Data.SqlClient;
+using System.Drawing.Drawing2D;
 
 namespace Tienda
 {
@@ -32,7 +33,30 @@ namespace Tienda
         {
             lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
             await CargarPagina();
+            //entre mayores son los numeros mas redondo son los botones
+            // no poner mas de 45 ya que la forma que adquieren es parecia a los dulces con dos triangulos apuntando al ovalo
+            RedondearBoton(btnAnterior, 40);
+            RedondearBoton(btnSiguiente, 40);
+            RedondearBoton(btnComprarFinal, 40);
+            RedondearBoton(btnEliminar, 40);
+            RedondearBoton(btnSobreNosotros, 40);
+
+
         }
+        private void RedondearBoton(Button boton, int radio)
+        {
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(0, 0, radio, radio, 180, 90);
+            path.AddArc(boton.Width - radio, 0, radio, radio, 270, 90);
+            path.AddArc(boton.Width - radio, boton.Height - radio, radio, radio, 0, 90);
+            path.AddArc(0, boton.Height - radio, radio, radio, 90, 90);
+            path.CloseAllFigures();
+
+            boton.Region = new Region(path);
+        }
+
+
 
         private async Task CargarPagina()
         {
@@ -126,7 +150,7 @@ namespace Tienda
                 {
                     MessageBox.Show("No tienes suficientes Pokébolas");
                 }
-            }; 
+            };
 
             card.Controls.Add(pic);
             card.Controls.Add(lblNombre);
@@ -243,6 +267,12 @@ namespace Tienda
             {
                 MessageBox.Show("Selecciona un Pokémon para eliminar.");
             }
+        }
+
+        private void btnSobreNosotros_Click(object sender, EventArgs e)
+        {
+            SobreNosotros ventana = new SobreNosotros();
+            ventana.ShowDialog();
         }
     }
 

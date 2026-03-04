@@ -1,9 +1,10 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.Data.SqlClient;
 
 namespace Tienda
 {
@@ -15,6 +16,8 @@ namespace Tienda
         private int saldo = 200;
         private List<string> pokemonComprados = new List<string>();
         private int totalGastado = 0;
+        private string conexion = "Server=ROBERTO\\ROBERTOABREGO;Database=TiendaPokemon;User Id=sa;Password=sa123456;TrustServerCertificate=True;";
+        private int transaccionActual;
 
         public Form1()
         {
@@ -27,7 +30,7 @@ namespace Tienda
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            lblSaldo.Text = "Saldo: " + saldo + " Pok�bolas";
+            lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
             await CargarPagina();
         }
 
@@ -96,7 +99,7 @@ namespace Tienda
                     saldo -= precio;
                     totalGastado += precio;
 
-                    lblSaldo.Text = "Saldo: " + saldo + " Pok�bolas";
+                    lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
                     lblTotal.Text = "Total: " + totalGastado + " PB";
 
                     // Descargar imagen como Bitmap
@@ -121,7 +124,7 @@ namespace Tienda
                 }
                 else
                 {
-                    MessageBox.Show("No tienes suficientes Pok�bolas");
+                    MessageBox.Show("No tienes suficientes Pokébolas");
                 }
             }; 
 
@@ -161,9 +164,59 @@ namespace Tienda
 
         private void btnComprar_Click(object sender, EventArgs e)
         {
+            if (lstComprados.Items.Count == 0)
+            {
+                MessageBox.Show("No hay Pokémon en la lista.");
+                return;
+            }
 
+            // 🔥 1. Crear nueva transacción JUSTO al comprar
+            CrearNuevaTransaccion();
+
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                con.Open();
+
+                foreach (ListViewItem item in lstComprados.Items)
+                {
+                    int precio = (int)item.Tag;
+                    string nombre = item.Text.Split('-')[0].Trim();
+
+                    SqlCommand cmd = new SqlCommand(
+                        "INSERT INTO PokemonComprado (TransaccionId, Nombre, Precio) VALUES (@t, @n, @p)",
+                        con);
+
+                    cmd.Parameters.AddWithValue("@t", transaccionActual);
+                    cmd.Parameters.AddWithValue("@n", nombre);
+                    cmd.Parameters.AddWithValue("@p", precio);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            MessageBox.Show("Compra realizada correctamente.");
+
+            // 🔥 LIMPIAR TODO
+            lstComprados.Items.Clear();
+            imageListPokemon.Images.Clear();
+            totalGastado = 0;
+            lblTotal.Text = "Total: 0 PB";
         }
+        private void CrearNuevaTransaccion()
+        {
+            using (SqlConnection con = new SqlConnection(conexion))
+            {
+                con.Open();
 
+                SqlCommand cmd = new SqlCommand(
+                    "INSERT INTO Transaccion (SaldoInicial) OUTPUT INSERTED.Id VALUES (@saldo)",
+                    con);
+
+                cmd.Parameters.AddWithValue("@saldo", saldo);
+
+                transaccionActual = (int)cmd.ExecuteScalar();
+            }
+        }
         private void btnEliminar_Click(object sender, EventArgs e)
         {
             if (lstComprados.SelectedItems.Count > 0)
@@ -178,7 +231,7 @@ namespace Tienda
 
                 // Devolver saldo
                 saldo += precio;
-                lblSaldo.Text = "Saldo: " + saldo + " Pok�bolas";
+                lblSaldo.Text = "Saldo: " + saldo + " Pokébolas";
 
                 // Eliminar imagen del ImageList
                 imageListPokemon.Images.RemoveByKey(item.ImageKey);
@@ -188,7 +241,7 @@ namespace Tienda
             }
             else
             {
-                MessageBox.Show("Selecciona un Pok�mon para eliminar.");
+                MessageBox.Show("Selecciona un Pokémon para eliminar.");
             }
         }
     }

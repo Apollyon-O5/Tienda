@@ -34,7 +34,7 @@
             btnSiguiente = new Button();
             lblSaldo = new Label();
             lblTotalGastado = new Label();
-            btnComprar = new Button();
+            btnComprarFinal = new Button();
             lstComprados = new ListView();
             imageListPokemon = new ImageList(components);
             lblTotal = new Label();
@@ -84,15 +84,15 @@
             lblTotalGastado.Size = new Size(0, 17);
             lblTotalGastado.TabIndex = 7;
             // 
-            // btnComprar
+            // btnComprarFinal
             // 
-            btnComprar.Location = new Point(727, 345);
-            btnComprar.Name = "btnComprar";
-            btnComprar.Size = new Size(79, 24);
-            btnComprar.TabIndex = 4;
-            btnComprar.Text = "Comprar";
-            btnComprar.UseVisualStyleBackColor = true;
-            btnComprar.Click += btnComprar_Click;
+            btnComprarFinal.Location = new Point(727, 345);
+            btnComprarFinal.Name = "btnComprarFinal";
+            btnComprarFinal.Size = new Size(79, 24);
+            btnComprarFinal.TabIndex = 4;
+            btnComprarFinal.Text = "Comprar";
+            btnComprarFinal.UseVisualStyleBackColor = true;
+            btnComprarFinal.Click += btnComprar_Click;
             // 
             // lstComprados
             // 
@@ -136,7 +136,7 @@
             Controls.Add(lblTotalGastado);
             Controls.Add(btnAnterior);
             Controls.Add(btnEliminar);
-            Controls.Add(btnComprar);
+            Controls.Add(btnComprarFinal);
             Controls.Add(btnSiguiente);
             Controls.Add(lblTotal);
             Controls.Add(lblSaldo);
@@ -155,7 +155,7 @@
         private Button btnSiguiente;
         private Label lblSaldo;
         private Label lblTotalGastado;
-        private Button btnComprar;
+        private Button btnComprarFinal;
         private ListView lstComprados;
         private ImageList imageListPokemon;
         private Label lblTotal;

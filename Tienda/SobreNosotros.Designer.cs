@@ -66,7 +66,7 @@
             btnVolver.FlatStyle = FlatStyle.Flat;
             btnVolver.Font = new Font("Comic Sans MS", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             btnVolver.Location = new Point(296, 292);
-            btnVolver.Margin = new Padding(2, 2, 2, 2);
+            btnVolver.Margin = new Padding(2);
             btnVolver.Name = "btnVolver";
             btnVolver.Size = new Size(78, 23);
             btnVolver.TabIndex = 2;
@@ -83,7 +83,7 @@
             Controls.Add(btnVolver);
             Controls.Add(label2);
             Controls.Add(label1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "SobreNosotros";
             Text = "SobreNosotros";
             Load += SobreNosotros_Load;

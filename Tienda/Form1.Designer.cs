@@ -128,6 +128,7 @@
             // btnSobreNosotros
             // 
             btnSobreNosotros.BackColor = Color.FromArgb(255, 255, 128);
+            btnSobreNosotros.FlatAppearance.BorderSize = 0;
             btnSobreNosotros.FlatStyle = FlatStyle.Flat;
             btnSobreNosotros.Font = new Font("Comic Sans MS", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             btnSobreNosotros.Location = new Point(29, 444);

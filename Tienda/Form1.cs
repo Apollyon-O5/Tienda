@@ -31,7 +31,6 @@ namespace Tienda
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-            this.BackColor = Color.FromArgb(45, 52, 54);
             txtSaldo.Text = saldo.ToString();
             await CargarPagina();
             //entre mayores son los numeros mas redondo son los botones
